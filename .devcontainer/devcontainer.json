@@ -1,0 +1,26 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+    "name": "electioncal",
+    "context": "..",
+    "service": "fastapi",
+    "dockerComposeFile": [
+        "docker-compose.yml"
+    ],
+    "workspaceFolder": "/code",
+    "extensions": [
+        "ms-python.python",
+        "bungcip.better-toml",
+        "waderyan.gitblame",
+        "oderwat.indent-rainbow",
+        "mechatroner.rainbow-csv",
+        "redhat.vscode-yaml",
+        "ms-python.vscode-pylance",
+        "visualstudioexptteam.vscodeintellicode",
+        "docsmsft.docs-markdown",
+    ],
+    "shutdownAction": "stopCompose",
+    "postCreateCommand": "cd /code; pipenv sync --dev",
+    // uncomment the following line if you are developing on linux
+    // due to the way docker on linux handles file perms with dev containers
+    // "remoteUser": "code"
+}

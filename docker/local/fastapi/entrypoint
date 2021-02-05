@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Let the DB start
+pipenv run python /code/api/scripts/wait_for_postgres.py
+
+exec "$@"

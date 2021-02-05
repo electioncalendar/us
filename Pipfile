@@ -1,0 +1,34 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pytest = "*"
+ipython = "*"
+# sqlalchemy-stubs = "*"
+# mypy = "*"
+# black = "==19.10b0"
+# isort = "*"
+
+[packages]
+fastapi = "~=0.60.2"
+uvicorn = "~=0.11.8"
+pydantic = {version = "~=1.6.1", extras = ['email']}
+python-multipart = "~=0.0.5"
+sqlalchemy = "~=1.3.18"
+databases = {extras = ["postgresql"], version = "~=0.3.2"}
+requests = "~=2.24.0"
+alembic = "~=1.4.2"
+twilio = "~=6.44.2"
+tenacity = "~=6.2.0"
+# static site stuff
+mistune= "==2.0.0a4"
+Pillow = "*"
+tomlkit = "*"
+jinja2 = "~=2.11.2"
+icalendar = "*"
+pendulum = "*"
+
+[requires]
+python_version = "3.8"

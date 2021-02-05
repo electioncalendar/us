@@ -1,0 +1,23 @@
+debug = true
+
+logLevel = "debug"
+defaultEntryPoints = ["http"]
+
+[api]
+entryPoint = "admin"
+dashboard = true
+
+
+[entryPoints]
+    [entryPoints.admin]
+    address = ":8080"
+
+    [entryPoints.http]
+    address = ":80"
+
+[retry]
+
+[docker]
+domain = "docker"
+watch = true
+exposedByDefault = false

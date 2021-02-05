@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+    django:
+        image: ${CI_REGISTRY_IMAGE}/fastapi:${CI_COMMIT_REF_SLUG}
+        working_dir: /code
+        env_file:
+            - /srv/environ/fastapi
+            - /srv/environ/postgres
+        networks:
+            - traefik-net
+            - back
+        deploy:
+            labels:
+                traefik.docker.network: traefik-net
+                traefik.frontend.headers.SSLProxyHeaders: "X-FORWARDED-PROTO:https"
+                traefik.backend: "fastapi"
+                traefik.fastapi.frontend.rule: "Host:api.electioncal.us"
+                traefik.fastapi.port: 8000
+                traefik.fastapi.frontend.protocol: "http"
+            restart_policy:
+                condition: on-failure
+                delay: 5s
+                max_attempts: 3
+        entrypoint: /entrypoint
+        command: /start
+
+networks:
+    traefik-net:
+        external: true
+    back:

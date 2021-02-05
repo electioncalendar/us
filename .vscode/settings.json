@@ -1,0 +1,20 @@
+{
+    "python.pythonPath": ".venv/bin/python",
+    "python.terminal.activateEnvironment": true,
+    "python.formatting.provider": "black",
+    "editor.formatOnSave": true,
+    "python.formatting.blackPath": "black",
+    "python.sortImports.path": "isort",
+    "[yaml]": {
+        "editor.tabSize": 4
+    },
+    "[toml]": {
+        "editor.tabSize": 4
+    },
+    "[dockerfile]": {
+        "editor.formatOnSave": false
+    },
+    "python.languageServer": "Pylance",
+    "python.testing.promptToConfigure": false,
+    "python.testing.pytestEnabled": false,
+}

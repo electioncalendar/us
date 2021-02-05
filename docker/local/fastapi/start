@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+# Run migrations
+alembic upgrade head
+
+# Create initial data in DB
+python /code/api/scripts/init_data.py
+
+uvicorn api.app.main:app --reload --host 0.0.0.0 --port 8000

@@ -1,0 +1,30 @@
+# Python Config things for local dev
+PYTHONDONTWRITEBYTECODE=1
+PIPENV_VENV_IN_PROJECT=1
+PIPENV_VERBOSITY=-1
+
+# Set to the number of processors times 2
+PIPENV_MAX_SUBPROCESS=32
+
+# Backend Stuff
+SECRET_KEY=""
+SUPERUSER_EMAIL=admin@api.electioncal.us
+SUPERUSER_PASSWORD=changethis
+
+# Email Config
+SMTP_TLS=True
+SMTP_PORT=587
+SMTP_HOST=""
+SMTP_USER=""
+SMTP_PASSWORD=""
+
+# Error reporting
+SENTRY_DSN=""
+
+# Domain Configurations
+BASE_URL=electioncal.docker
+
+# TWILIO STUFF
+TWILIO_SID=""
+TWILIO_AUTH_TOKEN=""
+TWILIO_SECRET=""

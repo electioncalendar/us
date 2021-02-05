@@ -1,0 +1,67 @@
+version: "3.3"
+
+volumes:
+    local_postgres_data: {}
+
+services:
+    traefik:
+        image: traefik:v1.7
+        volumes:
+            - /var/run/docker.sock:/var/run/docker.sock
+            - ./docker/local/traefik/traefik.toml:/traefik.toml
+        ports:
+            - "80:80"
+            - "8080:8080"
+
+    mailhog:
+        image: mailhog/mailhog
+        labels:
+            traefik.enable: "True"
+            traefik.backend: "mailhog"
+            traefik.mailhog.port: 8025
+            traefik.mailhog.frontend.rule: "Host:mailhog.docker"
+
+    postgres:
+        image: postgres:12-alpine
+        volumes:
+            - local_postgres_data:/var/lib/postgresql/data
+        env_file:
+            - ./envs/local/postgres
+
+    pgadmin:
+        image: dpage/pgadmin4
+        depends_on:
+            - postgres
+        env_file:
+            - ./envs/local/pgadmin
+        labels:
+            traefik.enable: "True"
+            traefik.backend: "pgadmin"
+            traefik.mailhog.port: 5050
+            traefik.mailhog.frontend.rule: "Host:pgadmin.docker"
+
+    fastapi:
+        build:
+            context: .
+            dockerfile: ./docker/local/fastapi/Dockerfile
+        image: electioncal_local_fastapi
+        depends_on:
+            - postgres
+            - traefik
+        volumes:
+            - .:/code
+            - ./docker/production/fastapi/entrypoint:/entrypoint
+            - ./docker/local/fastapi/start:/start
+            - ./.history:/commandhistory
+        env_file:
+            - ./envs/local/fastapi
+            - ./envs/local/postgres
+        labels:
+            traefik.enabled: "True"
+            traefik.backend: "fastapi"
+            traefik.fastapi.port: 8000
+            traefik.fastapi.frontend.rule: "Host:api.electioncal.docker"
+            traefik.static.port: 4242
+            traefik.static.frontend.rule: "Host:electioncal.docker"
+        entrypoint: /entrypoint
+        command: /start
